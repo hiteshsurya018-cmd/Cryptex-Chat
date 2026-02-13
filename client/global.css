@@ -101,3 +101,50 @@
     font-family: "Roboto", sans-serif;
   }
 }
+
+@layer utilities {
+  @keyframes card-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px) scale(0.99);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes message-in {
+    0% {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-card-in {
+    animation: card-in 420ms ease-out both;
+  }
+
+  .animate-message-in {
+    animation: message-in 280ms ease-out both;
+  }
+
+  .chat-card {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .matrix-overlay {
+    display: none;
+  }
+
+  .chat-card > :not(.matrix-overlay) {
+    position: relative;
+    z-index: 2;
+  }
+
+}

@@ -12,12 +12,12 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen bg-background flex justify-center items-center p-4">
-      <div className="max-w-lg w-full h-[90vh] bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col">
+      <div className="max-w-lg w-full h-[90vh] bg-card rounded-3xl shadow-xl overflow-hidden flex flex-col border border-border">
         <Header />
-        <div className="flex-1 flex items-center justify-center bg-gray-50">
+        <div className="flex-1 flex items-center justify-center bg-secondary">
           <div className="text-center">
-            <h1 className="text-6xl font-bold text-gray-800">404</h1>
-            <p className="text-lg text-gray-600 mt-2">Page not found</p>
+            <h1 className="text-6xl font-bold text-foreground">404</h1>
+            <p className="text-lg text-muted-foreground mt-2">Page not found</p>
             <a
               href="/"
               className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary))]/90 transition-colors"

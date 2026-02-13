@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="bg-[hsl(var(--primary))] text-white border-b border-gray-200">
+    <header className="bg-[hsl(var(--primary))] text-white border-b border-border">
       <div className="flex items-center justify-center gap-4 px-4 py-4">
         <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center shadow-lg">
           <svg

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function TypingIndicator() {
   return (
-    <div className="flex items-start gap-3">
+    <div className="flex items-start gap-3" role="status" aria-live="polite">
       <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
         <svg
           width="16"
@@ -25,7 +25,7 @@ export default function TypingIndicator() {
       </div>
       <div className="bg-gray-100 px-5 py-3 rounded-2xl rounded-tl-lg shadow-sm">
         <div className="flex items-center gap-1">
-          <span className="sr-only">Typing…</span>
+          <span className="sr-only">Typing...</span>
           <span className="w-2 h-2 rounded-full bg-gray-400 animate-typing [animation-delay:0ms]" />
           <span className="w-2 h-2 rounded-full bg-gray-400 animate-typing [animation-delay:150ms]" />
           <span className="w-2 h-2 rounded-full bg-gray-400 animate-typing [animation-delay:300ms]" />
