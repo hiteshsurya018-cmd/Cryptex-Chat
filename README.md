@@ -45,7 +45,9 @@ Base URL (dev): `http://localhost:8080` (Vite dev server with Express middleware
   - Fields: `file`, `key`, `type` (image|video|audio|file)
 - `POST /api/decrypt-file`
   - Fields: `file`, `key`, `type` (image|video|audio|file)
-- Response includes `downloadUrl` like `/processed/<filename>`
+- Response includes either:
+  - `downloadUrl` (local Express server)
+  - `dataBase64` + `filename` (Vercel serverless)
 
 ### Document Text Extraction
 - `POST /api/extract-text`
@@ -53,7 +55,8 @@ Base URL (dev): `http://localhost:8080` (Vite dev server with Express middleware
   - Response: `{ text, chars, truncated }`
 
 Limits:
-- Max upload size: 50MB per file.
+- Local server: 50MB per file.
+- Vercel serverless: controlled by `MAX_UPLOAD_BYTES` (default 4MB).
 
 ## Getting Started
 
@@ -89,6 +92,7 @@ pnpm test
 ## Environment Variables
 - `PORT` (default: `3000`) for the production server.
 - `PING_MESSAGE` (default: `ping`) for `/api/ping`.
+- `MAX_UPLOAD_BYTES` (default: `4194304`) for serverless API payload size.
 
 Create a `.env` file in the repo root if needed:
 ```ini

@@ -1,2 +1,6 @@
 node_modules
 public/processed
+dist
+
+.vercel
+.env*.local

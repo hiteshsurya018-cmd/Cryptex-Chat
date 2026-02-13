@@ -206,7 +206,7 @@ export default function Index() {
           <div className="font-semibold">Formats & limits</div>
           <div>Text: any plain text input.</div>
           <div>Files: image, video, audio, and documents (PDF/DOCX/TXT).</div>
-          <div>Max file size: 50MB per upload.</div>
+          <div>Max file size: depends on deployment (local supports larger files).</div>
           <div className="text-xs text-muted-foreground">
             For documents, you can extract and encrypt text directly.
           </div>

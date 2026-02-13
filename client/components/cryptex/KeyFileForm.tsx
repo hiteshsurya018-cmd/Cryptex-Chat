@@ -45,6 +45,21 @@ export default function KeyFileForm({
     }
   }
 
+  function downloadBase64(dataBase64: string, filename: string) {
+    const binary = atob(dataBase64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    const blob = new Blob([bytes], { type: "application/octet-stream" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename || "download.bin";
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   function getKeyStrength(value: string) {
     const lengthScore = value.length >= 12 ? 2 : value.length >= 8 ? 1 : 0;
     const hasLower = /[a-z]/.test(value);
@@ -214,33 +229,65 @@ export default function KeyFileForm({
             <div className="text-xs uppercase tracking-wider text-gray-600 mb-2">
               Processed {type === "file" ? "document" : type}
             </div>
-            <a
-              href={json.downloadUrl}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary))]/90 transition-colors"
-              download
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                className="text-white"
+            {json.downloadUrl ? (
+              <a
+                href={json.downloadUrl}
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary))]/90 transition-colors"
+                download
               >
-                <path
-                  d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-              </svg>
-              <span>Download File</span>
-            </a>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="text-white"
+                >
+                  <path
+                    d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+                <span>Download File</span>
+              </a>
+            ) : json.dataBase64 ? (
+              <button
+                type="button"
+                onClick={() =>
+                  downloadBase64(
+                    json.dataBase64,
+                    json.filename || "download.bin",
+                  )
+                }
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary))]/90 transition-colors"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="text-white"
+                >
+                  <path
+                    d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+                <span>Download File</span>
+              </button>
+            ) : (
+              <div className="text-xs text-muted-foreground">
+                No downloadable file returned.
+              </div>
+            )}
           </div>,
         );
       }
     } catch (err: any) {
       const msg = String(err?.message || "Something went wrong");
       if (/413|LIMIT_FILE_SIZE/i.test(msg)) {
-        onError?.("File too large. Please use files up to 50MB.");
+        onError?.("File too large. Please use a smaller file.");
       } else {
         onError?.(
           msg.includes("not supported")
